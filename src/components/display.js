@@ -13,8 +13,9 @@ class Display extends Component {
     }
 
     componentDidMount() {
-      let url = `https://data.seattle.gov/resource/xurz-654a.json`;
-    let query = `?reported_date=2018-09-12T00:00:00.000`;
+      let url = `https://data.seattle.gov/resource/pdem-r2ku.json`;
+//      let url = `https://data.seattle.gov/resource/xurz-654a.json`;
+    let query = ``//?original_time_queued=2018-09-12T00:00:00.000`;
 //      let query = `$where=reported_date '2015-01-10T12:00:00'`;
 //let query="";
   //    let newquery = encodeURIComponent(query);
