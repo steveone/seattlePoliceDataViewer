@@ -115,6 +115,7 @@ class Rtable extends Component {
             }
 
           ]}
+          filterable
           defaultPageSize={50}
           className="-striped -highlight"
         />
