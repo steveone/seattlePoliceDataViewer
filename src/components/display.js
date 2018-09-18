@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import Item from './item';
+//import Item from './item';
+import Rtable from './rtable';
 
 class Display extends Component {
 
@@ -12,8 +13,15 @@ class Display extends Component {
     }
 
     componentDidMount() {
-//      axios.get(`https://data.seattle.gov/resource/y7pv-r3kh.json`)
- axios.get(`http://localhost:3000/data.json`)
+      let url = `https://data.seattle.gov/resource/xurz-654a.json`;
+    let query = `?reported_date=2018-09-12T00:00:00.000`;
+//      let query = `$where=reported_date '2015-01-10T12:00:00'`;
+//let query="";
+  //    let newquery = encodeURIComponent(query);
+      let newurl = url + query;
+      axios.get(newurl)
+
+ //axios.get(`http://localhost:3000/data.json`)
         .then(res => {
           //console.log(res.data[0]);
           const posts = res.data;
@@ -35,7 +43,7 @@ class Display extends Component {
           this.setState({headers});
           console.log(headers);
           let d = Object.values(posts)
-          .slice(0,10)
+//          .slice(0,10)
 
           d = d.map((arr) => Object.values(arr))
           d= d.map((arr) =>
@@ -75,14 +83,13 @@ class Display extends Component {
 
     return (
       <div className="Display">
-          {
+          {/*
             results.map((data,i,d) => {
               return <Item key={i} headers = {headers} item={d[i]}/>
             })
 
-
-}
-
+*/}
+<Rtable data={results} headers={headers}/>
       </div>
     );
   }
