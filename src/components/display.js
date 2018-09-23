@@ -24,7 +24,7 @@ class Display extends Component {
 
       let key = 'NGieDco5mJeD6gAXfLkS5TfXQ';
       console.log(key);
-
+      console.log("in get data");
       let url = `https://data.seattle.gov/resource/pdem-r2ku.json`;
       let query = `?$where=original_time_queued > '${startDate}' and original_time_queued < '${endDate}'`;
       let newurl = url + query;
@@ -45,7 +45,8 @@ class Display extends Component {
 
           const headers = Object.keys(posts[0]).filter(key => !['raw', 'updated_at'].includes(key));
           this.setState({headers});
-          console.log(headers);
+//          console.log("these is headers display")
+//          console.log(headers);
           let d = Object.values(posts)
 
           d = d.map((arr) => Object.values(arr))
@@ -55,7 +56,7 @@ class Display extends Component {
             if (typeof inner !== 'object') {return inner}
             else {
               //console.log('we got a object');
-              console.log(arr[key])
+//              console.log(arr[key])
               storage[arr[key]] = Object.values(arr[key])
               return '';
             }
@@ -63,19 +64,26 @@ class Display extends Component {
         )
 
           const results = d;
+          console.log("updating state in display")
           this.setState({results});
+          //console.log(this.state.results);
           this.setState({loading:false});
         });
     }
 
     componentDidUpdate(prevProps,prevState){
+      console.log("got into componentdidupdate");
       if (this.state.loading === false){
         console.log('state changed after load')
         const oldEndDate = prevState.endDate.format('YYYY-MM-DD')
         const oldStartDate = prevState.startDate.format('YYYY-MM-DD')
         const newEndDate = this.state.endDate.format('YYYY-MM-DD')
         const newStartDate = this.state.startDate.format('YYYY-MM-DD')
-        if ((oldEndDate !== newEndDate) && (oldStartDate !== newStartDate)){
+        console.log(oldEndDate + " " + newEndDate)
+        console.log(oldStartDate + " " + newStartDate)
+
+        if ((oldEndDate !== newEndDate) || (oldStartDate !== newStartDate)){
+          console.log("calling getdata from componentdidupdate");
           this.getData(newStartDate,newEndDate)
               }
       }
@@ -98,6 +106,7 @@ class Display extends Component {
 //    const columns = this.state.columns;
     const results = this.state.results;
     const headers = this.state.headers;
+//    console.log("headers in render of display" + headers);
 //    const columns = this.state.columns;
 
     return (
@@ -106,13 +115,13 @@ class Display extends Component {
 Start Date:<DatePicker
 key='start'
 selected={this.state.startDate}
-onChange={(date) => this.setState({startDate:date})}
+onChange={(date) => {this.setState({startDate:date});console.log('updated start')}}
 
 />
 End Date: <DatePicker
 key='end'
 selected={this.state.endDate}
-onChange={(date) => this.setState({endDate:date})}
+onChange={(date) => {this.setState({endDate:date});console.log('updated end')}}
 
 />
 <Rtable data={results} headers={headers} startDate={this.state.startDate} endDate={this.state.endDate}/>

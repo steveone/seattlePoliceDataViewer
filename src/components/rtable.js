@@ -5,8 +5,12 @@ import "react-table/react-table.css";
 class Rtable extends Component {
 
   state = {
-      data:[]
+      data:[],
+      headers:[],
+      i:0
     }
+
+
 
     componentDidMount() {
       const data = this.props.data;
@@ -19,10 +23,12 @@ class Rtable extends Component {
 }
 
   render() {
-    const { data } = this.props
-    console.log("rendering");
+  //  const headers = this.state.headers;
+    const data  = this.props.data;
     console.log(data);
+    console.log("rendering " + this.state.i);
 
+//    console.log(data);
     return (
 
 
@@ -31,82 +37,102 @@ class Rtable extends Component {
           data={data}
           columns={[
             {
-              Header: "Name",
+              //Header: "Name",
               columns: [
                 {
-                  Header: ":@computed_region_kuhn_3gp2",
-                  id: "computed region",
+                  Header: 'Final Call Type',
+                  id: "finalCallType",
                   accessor: d=>d[0]
                 },
                 {
-                  Header: "Last Name",
-                  id: "lastName",
+                  Header: "Precint",
+                  id: "precint",
                   accessor: d => d[1]
                 }
               ]
             },
             {
-              Header: "Info",
+              //Header: "Precinct",
               columns: [
                 {
-                  Header: "Age",
-                  id: "age",
+                  Header: "Cad Event Number",
+                  id: "cadEventNumber",
                   accessor: d=>d[2]
                 },
                 {
-                  Header: "Status",
-                  id: "status",
+                  Header: "Event Clearance Desc",
+                  id: "eventClearanceDescription",
                   accessor : d=>d[3]
                 }
               ]
             },
             {
-              Header: 'item4',
+              //Header: 'item4',
               columns: [
                 {
-                  Header: "Visits1",
-                  id: "visits1",
+                  Header: "Original Time Queued",
+                  id: "original_time_queued",
                   accessor: d=>d[4]
                 }
               ]
             },
             {
-              Header: 'item15',
+              //Header: 'item15',
               columns: [
                 {
-                  Header: "Visits2",
-                  id: "visits2",
+                  Header: "Initial Call Type",
+                  id: "initialCallTime",
                   accessor: d=>d[5]
                 }
               ]
             },
             {
-              Header: 'item16',
+              //Header: 'item16',
               columns: [
                 {
-                  Header: "Visits3",
-                  id: "item16",
+                  Header: "Beat",
+                  id: "beat",
                   accessor: d=>d[6]
                 }
               ]
             },
             {
-              Header: 'item17',
+              //Header: 'item17',
               columns: [
                 {
-                  Header: "Visits7",
-                  id: "item17",
+                  Header: "Priority",
+                  id: "priority",
                   accessor: d=>d[7]
                 }
               ]
             },
             {
-              Header: 'item18',
+              //Header: 'item18',
               columns: [
                 {
-                  Header: "Visits18",
-                  id: "item18",
+                  Header: "Call Type",
+                  id: "callType",
                   accessor: d=>d[8]
+                }
+              ]
+            },
+            {
+              //Header: 'item18',
+              columns: [
+                {
+                  Header: "Arrived Time",
+                  id: "arrivedTime",
+                  accessor: d=>d[9]
+                }
+              ]
+            },
+            {
+              //Header: 'item18',
+              columns: [
+                {
+                  Header: "Sector",
+                  id: "sector",
+                  accessor: d=>d[10]
                 }
               ]
             }
