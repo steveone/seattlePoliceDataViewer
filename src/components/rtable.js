@@ -3,19 +3,16 @@ import ReactTable from "react-table";
 import "react-table/react-table.css";
 
 class Rtable extends Component {
-/*  constructor() {
-    super();
-    this.state = {
-      data: []
-    };
-  }
-  */
+
   state = {
       data:[]
     }
 
     componentDidMount() {
       const data = this.props.data;
+      const {startDate,endDate} = {...this.props};
+      console.log(startDate.format('YYYY-MM-YY'));
+      console.log(endDate);
       console.log("in componentdidmoount");
       console.log(data);
       this.setState({data});
@@ -116,7 +113,7 @@ class Rtable extends Component {
 
           ]}
           filterable
-          defaultPageSize={50}
+          defaultPageSize={25}
           className="-striped -highlight"
         />
         <br />

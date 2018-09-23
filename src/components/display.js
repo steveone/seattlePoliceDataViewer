@@ -2,40 +2,43 @@ import React, { Component } from 'react';
 import axios from 'axios';
 //import Item from './item';
 import Rtable from './rtable';
-
+import DatePicker from 'react-datepicker';
+import moment from 'moment';
+import 'react-datepicker/dist/react-datepicker.css';
 class Display extends Component {
+
 
   state = {
       posts: [],
       columns: [],
       results: [],
-      headers: []
+      headers: [],
+      startDate: moment(),
+      endDate: moment(),
+      loading:true
     }
 
-    componentDidMount() {
+
+
+    getData(startDate,endDate) {
+
+      let key = 'NGieDco5mJeD6gAXfLkS5TfXQ';
+      console.log(key);
+
       let url = `https://data.seattle.gov/resource/pdem-r2ku.json`;
-//      let url = `https://data.seattle.gov/resource/xurz-654a.json`;
-    let query = ``//?original_time_queued=2018-09-12T00:00:00.000`;
-//      let query = `$where=reported_date '2015-01-10T12:00:00'`;
-//let query="";
-  //    let newquery = encodeURIComponent(query);
+      let query = `?$where=original_time_queued > '${startDate}' and original_time_queued < '${endDate}'`;
       let newurl = url + query;
       axios.get(newurl)
 
- //axios.get(`http://localhost:3000/data.json`)
         .then(res => {
-          //console.log(res.data[0]);
           const posts = res.data;
           //posts = Object.keys(posts);
           this.setState({ posts });
           const post = posts[0];
-      //    const notAllowed = ['type','coordinates'];
 
           let columns = [];
           for (let key in post) {
-//         if( !notAllowed.includes(key)) {
             columns.push(key);}
-//          }
           this.setState({columns});
 
           let storage = []
@@ -44,7 +47,6 @@ class Display extends Component {
           this.setState({headers});
           console.log(headers);
           let d = Object.values(posts)
-//          .slice(0,10)
 
           d = d.map((arr) => Object.values(arr))
           d= d.map((arr) =>
@@ -60,19 +62,35 @@ class Display extends Component {
           })
         )
 
-/*          .filter((k,element) => {
-            if (typeof element !== 'object') {console.log(k)}
-            else return false}
-
-        )*/
-
           const results = d;
-          console.log("next up, d")
-          console.log(results);
-          console.log(storage);
           this.setState({results});
+          this.setState({loading:false});
         });
     }
+
+    componentDidUpdate(prevProps,prevState){
+      if (this.state.loading === false){
+        console.log('state changed after load')
+        const oldEndDate = prevState.endDate.format('YYYY-MM-DD')
+        const oldStartDate = prevState.startDate.format('YYYY-MM-DD')
+        const newEndDate = this.state.endDate.format('YYYY-MM-DD')
+        const newStartDate = this.state.startDate.format('YYYY-MM-DD')
+        if ((oldEndDate !== newEndDate) && (oldStartDate !== newStartDate)){
+          this.getData(newStartDate,newEndDate)
+              }
+      }
+
+    }
+
+    componentDidMount() {
+     const startDate = moment().subtract(7,'d')
+     const endDate = moment()
+
+
+     this.setState({startDate,endDate})
+     this.getData(startDate.format('YYYY-MM-DD'),endDate.format('YYYY-MM-DD'));
+    }
+
 
   render() {
 
@@ -83,17 +101,28 @@ class Display extends Component {
 //    const columns = this.state.columns;
 
     return (
-      <div className="Display">
-          {/*
-            results.map((data,i,d) => {
-              return <Item key={i} headers = {headers} item={d[i]}/>
-            })
 
-*/}
-<Rtable data={results} headers={headers}/>
+<div className="Display">
+Start Date:<DatePicker
+key='start'
+selected={this.state.startDate}
+onChange={(date) => this.setState({startDate:date})}
+
+/>
+End Date: <DatePicker
+key='end'
+selected={this.state.endDate}
+onChange={(date) => this.setState({endDate:date})}
+
+/>
+<Rtable data={results} headers={headers} startDate={this.state.startDate} endDate={this.state.endDate}/>
       </div>
     );
   }
+
+
+
+
 }
 
 export default Display;
