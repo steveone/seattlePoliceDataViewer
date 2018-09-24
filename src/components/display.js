@@ -20,14 +20,15 @@ class Display extends Component {
 
 
 
-    getData(startDate,endDate) {
-
+    getData(startDate,endDate,offset=0) {
       let key = 'NGieDco5mJeD6gAXfLkS5TfXQ';
       console.log(key);
       console.log("in get data");
       let url = `https://data.seattle.gov/resource/pdem-r2ku.json`;
       let query = `?$where=original_time_queued > '${startDate}' and original_time_queued < '${endDate}'`;
-      let newurl = url + query;
+      //let query2 = ` and initial_call_type='SHOTS - IP/JO - INCLUDES HEARD/NO ASSAULT'`;
+      let offsetQuery =`&$offset=${offset}`;
+      let newurl = url + query + offsetQuery;// + query2;
       axios.get(newurl)
 
         .then(res => {
@@ -63,9 +64,15 @@ class Display extends Component {
           })
         )
 
-          const results = d;
+          let results = d;
           console.log("updating state in display")
+          results = results.concat(this.state.results);
           this.setState({results});
+          console.log(d.length + "size of returned data");
+          if (d.length === 1000) {
+            console.log("getting more data");
+            this.getData(startDate,endDate,offset+1000);
+          }
           //console.log(this.state.results);
           this.setState({loading:false});
         });
@@ -110,22 +117,23 @@ class Display extends Component {
 //    const columns = this.state.columns;
 
     return (
-
-<div className="Display">
-Start Date:<DatePicker
+<div className='Display'>
+<div className='datePicker'>
+<label>Start Date:</label>
+<DatePicker
 key='start'
 selected={this.state.startDate}
 onChange={(date) => {this.setState({startDate:date});console.log('updated start')}}
-
 />
-End Date: <DatePicker
+</div>
+<label>End Date:</label>
+<DatePicker
 key='end'
 selected={this.state.endDate}
 onChange={(date) => {this.setState({endDate:date});console.log('updated end')}}
-
 />
 <Rtable data={results} headers={headers} startDate={this.state.startDate} endDate={this.state.endDate}/>
-      </div>
+</div>
     );
   }
 
