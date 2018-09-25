@@ -58,3 +58,19 @@
 .Display-title {
   position:relative;
 }
+
+.Display {
+  position:relative;
+}
+
+.Display label {
+  float:left;
+}
+
+react-datepicker-wrapper {
+  float:right;
+}
+
+.datePicker {
+  width:25%;
+}
