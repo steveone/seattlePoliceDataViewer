@@ -8,6 +8,7 @@
     "react": "^16.5.1",
     "react-datepicker": "^1.6.0",
     "react-dom": "^16.5.2",
+    "react-loader-spinner": "^2.0.6",
     "react-scripts": "1.1.5",
     "react-table": "^6.8.6"
   },

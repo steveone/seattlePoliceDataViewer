@@ -23,16 +23,23 @@ class Rtable extends Component {
 }
 
   render() {
-  //  const headers = this.state.headers;
-    const data  = this.props.data;
-    console.log(data);
-    console.log("rendering " + this.state.i);
 
+
+
+
+  //  const headers = this.state.headers;
+let data = [];
+    if (this.props.loading === false) {
+      data  = this.props.data;
+      console.log("rendering " + this.state.i);
+      console.log("loading");
+}
 //    console.log(data);
     return (
 
-
       <div>
+      {(this.props.loading === true) && ( <div> loading </div> )}
+
         <ReactTable
           data={data}
           columns={[
@@ -142,12 +149,13 @@ class Rtable extends Component {
           defaultPageSize={25}
           className="-striped -highlight"
         />
+
         <br />
 
       </div>
-    )
+)
   }
-  }
+}
 
 
 export default Rtable;

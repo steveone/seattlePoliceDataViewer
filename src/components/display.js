@@ -5,6 +5,8 @@ import Rtable from './rtable';
 import DatePicker from 'react-datepicker';
 import moment from 'moment';
 import 'react-datepicker/dist/react-datepicker.css';
+import Loader from 'react-loader-spinner'
+
 class Display extends Component {
 
 
@@ -21,6 +23,8 @@ class Display extends Component {
 
 
     getData(startDate,endDate,offset=0) {
+      let loading = true;
+      this.setState({loading});
       let key = 'NGieDco5mJeD6gAXfLkS5TfXQ';
       console.log(key);
       console.log("in get data");
@@ -72,9 +76,12 @@ class Display extends Component {
           if (d.length === 1000) {
             console.log("getting more data");
             this.getData(startDate,endDate,offset+1000);
+            this.setState({loading:true});
           }
-          //console.log(this.state.results);
+          else {
+          console.log("setting loading to false");
           this.setState({loading:false});
+          }
         });
     }
 
@@ -119,20 +126,27 @@ class Display extends Component {
     return (
 <div className='Display'>
 <div className='datePicker'>
-<label>Start Date:</label>
+<label>Start Date:
 <DatePicker
 key='start'
 selected={this.state.startDate}
 onChange={(date) => {this.setState({startDate:date});console.log('updated start')}}
 />
+</label>
 </div>
-<label>End Date:</label>
+<label>End Date:
 <DatePicker
 key='end'
 selected={this.state.endDate}
 onChange={(date) => {this.setState({endDate:date});console.log('updated end')}}
 />
-<Rtable data={results} headers={headers} startDate={this.state.startDate} endDate={this.state.endDate}/>
+</label>
+{(this.state.loading === true) && (<Loader type="CradleLoader" color="#somecolor" height={80} width={80} />)}
+{(this.state.loading === false) && (<Rtable data={results}
+                                    loading={this.state.loading}
+                                    headers={headers}
+                                    startDate={this.state.startDate}
+                                    endDate={this.state.endDate}/>)}
 </div>
     );
   }
