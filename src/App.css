@@ -26,6 +26,7 @@
 
 .App-title {
   font-size: 1.5em;
+  line-height: 0.5em;
 }
 
 .App-intro {
@@ -35,6 +36,11 @@
 @keyframes App-logo-spin {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
+}
+
+.dateSelectors{
+  position: relative;
+  height:25px;
 }
 
 .Wrapper{
@@ -49,10 +55,21 @@
   clear:left;
 }
 
+.datePickerStart{
+  float:left;
+  width:25%;
+  padding-left:25%;
+}
+
+.datePickerEnd{
+  float:right;
+  width:25%;
+  padding-right:25%;
+}
+
 .Right {
   margin-bottom:5px;
   float:right;
-
 }
 
 .Display-title {

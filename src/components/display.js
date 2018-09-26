@@ -125,13 +125,16 @@ class Display extends Component {
 
     return (
 <div className='Display'>
-<div className='datePicker'>
+<div className='dateSelectors'>
+<div className='datePickerStart'>
 <label>Start Date:</label>
 <DatePicker
 key='start'
 selected={this.state.startDate}
 onChange={(date) => {this.setState({startDate:date});console.log('updated start')}}
 />
+</div>
+<div className='datePickerEnd'>
 <label>End Date:</label>
 <DatePicker
 key='end'
@@ -139,7 +142,7 @@ selected={this.state.endDate}
 onChange={(date) => {this.setState({endDate:date});console.log('updated end')}}
 />
 </div>
-
+</div>
 {(this.state.loading === true) && (<Loader type="CradleLoader" color="#somecolor" height={80} width={80} />)}
 {(this.state.loading === false) && (<Rtable data={results}
                                     loading={this.state.loading}

@@ -147,6 +147,9 @@ let data = [];
           ]}
           filterable
           defaultPageSize={25}
+          style={{
+            height: "500px" // This will force the table body to overflow and scroll, since there is not enough room
+          }}
           className="-striped -highlight"
         />
 
