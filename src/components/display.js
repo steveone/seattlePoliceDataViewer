@@ -28,11 +28,18 @@ class Display extends Component {
       let key = 'NGieDco5mJeD6gAXfLkS5TfXQ';
       console.log(key);
       console.log("in get data");
+      //crime data , not just 911 below
+      //https://data.seattle.gov/resource/xurz-654a.json
+      //
+      //SPD Offense codes
+      //https://data.seattle.gov/resource/aj7i-nahf.json
+      //
       let url = `https://data.seattle.gov/resource/pdem-r2ku.json`;
       let query = `?$where=original_time_queued > '${startDate}' and original_time_queued < '${endDate}'`;
       //let query2 = ` and initial_call_type='SHOTS - IP/JO - INCLUDES HEARD/NO ASSAULT'`;
       let offsetQuery =`&$offset=${offset}`;
       let newurl = url + query + offsetQuery;// + query2;
+      //newurl = 'http://localhost:3000/data.json';
       axios.get(newurl)
 
         .then(res => {

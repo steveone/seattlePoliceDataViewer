@@ -7,7 +7,8 @@ class Rtable extends Component {
   state = {
       data:[],
       headers:[],
-      i:0
+      i:0,
+      filtered:[{'id':'initialCallTime','value':'SHOTS'}]
     }
 
 
@@ -25,9 +26,11 @@ class Rtable extends Component {
   render() {
 
 
+let filters = this.state.filtered;
+const filteredOn = filters.map((val,index) => {
+    return val.value
+})
 
-
-  //  const headers = this.state.headers;
 let data = [];
     if (this.props.loading === false) {
       data  = this.props.data;
@@ -36,12 +39,19 @@ let data = [];
 }
 //    console.log(data);
     return (
-
       <div>
+      {/*Display the current filters in one line*/}
+
+      {(filteredOn.length > 0) ? `Filters: ` : ''}
+      {filteredOn.map((val) => val + ' ')}
+
+      {/*Show loading until data is fully downloaded*/}
       {(this.props.loading === true) && ( <div> loading </div> )}
 
         <ReactTable
           data={data}
+          filtered={this.state.filtered}
+          onFilteredChange={filtered=>this.setState({filtered})}
           columns={[
             {
               //Header: "Name",
