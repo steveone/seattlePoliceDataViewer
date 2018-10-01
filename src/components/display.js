@@ -6,6 +6,7 @@ import DatePicker from 'react-datepicker';
 import moment from 'moment';
 import 'react-datepicker/dist/react-datepicker.css';
 import Loader from 'react-loader-spinner'
+import Select from 'react-select'
 
 class Display extends Component {
 
@@ -17,7 +18,8 @@ class Display extends Component {
       headers: [],
       startDate: moment(),
       endDate: moment(),
-      loading:true
+      loading:true,
+      options:[]
     }
 
 
@@ -25,9 +27,7 @@ class Display extends Component {
     getData(startDate,endDate,offset=0) {
       let loading = true;
       this.setState({loading});
-      let key = 'NGieDco5mJeD6gAXfLkS5TfXQ';
-      console.log(key);
-      console.log("in get data");
+  //    let key = 'NGieDco5mJeD6gAXfLkS5TfXQ';
       //crime data , not just 911 below
       //https://data.seattle.gov/resource/xurz-654a.json
       //
@@ -59,8 +59,11 @@ class Display extends Component {
           this.setState({headers});
 //          console.log("these is headers display")
 //          console.log(headers);
+
+
           let d = Object.values(posts)
 
+console.log(d[0]);
           d = d.map((arr) => Object.values(arr))
           d= d.map((arr) =>
           arr.map((inner,key) => {
@@ -75,36 +78,39 @@ class Display extends Component {
           })
         )
 
-          let results = d;
+//          let results = d;
+let results = [];
+results = Object.assign(results,posts);
           console.log("updating state in display")
           results = results.concat(this.state.results);
           this.setState({results});
-          console.log(d.length + "size of returned data");
-          if (d.length === 1000) {
-            console.log("getting more data");
+          console.log(d.length + " size of returned data");
+//          if (d.length === 1000) {
+            if (posts.sizeOf === 1000){
+  //          console.log("getting more data");
             this.getData(startDate,endDate,offset+1000);
             this.setState({loading:true});
           }
           else {
-          console.log("setting loading to false");
           this.setState({loading:false});
           }
         });
     }
 
     componentDidUpdate(prevProps,prevState){
-      console.log("got into componentdidupdate");
+//      console.log("got into componentdidupdate");
       if (this.state.loading === false){
-        console.log('state changed after load')
+//        console.log('state changed after load')
         const oldEndDate = prevState.endDate.format('YYYY-MM-DD')
         const oldStartDate = prevState.startDate.format('YYYY-MM-DD')
         const newEndDate = this.state.endDate.format('YYYY-MM-DD')
         const newStartDate = this.state.startDate.format('YYYY-MM-DD')
-        console.log(oldEndDate + " " + newEndDate)
-        console.log(oldStartDate + " " + newStartDate)
+//        console.log(oldEndDate + " " + newEndDate)
+//        console.log(oldStartDate + " " + newStartDate)
 
+//        const options = d.map((data=>data))
         if ((oldEndDate !== newEndDate) || (oldStartDate !== newStartDate)){
-          console.log("calling getdata from componentdidupdate");
+//          console.log("calling getdata from componentdidupdate");
           this.getData(newStartDate,newEndDate)
               }
       }
@@ -127,6 +133,7 @@ class Display extends Component {
 //    const columns = this.state.columns;
     const results = this.state.results;
     const headers = this.state.headers;
+    const options = this.state.options;
 //    console.log("headers in render of display" + headers);
 //    const columns = this.state.columns;
 
@@ -138,7 +145,7 @@ class Display extends Component {
 <DatePicker
 key='start'
 selected={this.state.startDate}
-onChange={(date) => {this.setState({startDate:date});console.log('updated start')}}
+onChange={(date) => {this.setState({startDate:date})}}
 />
 </div>
 <div className='datePickerEnd'>
@@ -146,8 +153,9 @@ onChange={(date) => {this.setState({startDate:date});console.log('updated start'
 <DatePicker
 key='end'
 selected={this.state.endDate}
-onChange={(date) => {this.setState({endDate:date});console.log('updated end')}}
+onChange={(date) => {this.setState({endDate:date})}}
 />
+{/*<Select options={options} />*/}
 </div>
 </div>
 {(this.state.loading === true) && (<Loader type="CradleLoader" color="#somecolor" height={80} width={80} />)}

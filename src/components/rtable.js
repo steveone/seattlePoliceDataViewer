@@ -16,10 +16,10 @@ class Rtable extends Component {
     componentDidMount() {
       const data = this.props.data;
       const {startDate,endDate} = {...this.props};
-      console.log(startDate.format('YYYY-MM-YY'));
-      console.log(endDate);
-      console.log("in componentdidmoount");
-      console.log(data);
+//      console.log(startDate.format('YYYY-MM-YY'));
+//      console.log(endDate);
+//      console.log("in componentdidmoount");
+//      console.log(data);
       this.setState({data});
 }
 
@@ -34,8 +34,8 @@ const filteredOn = filters.map((val,index) => {
 let data = [];
     if (this.props.loading === false) {
       data  = this.props.data;
-      console.log("rendering " + this.state.i);
-      console.log("loading");
+//      console.log("rendering " + this.state.i);
+//      console.log("loading");
 }
 //    console.log(data);
     return (
@@ -59,12 +59,12 @@ let data = [];
                 {
                   Header: 'Final Call Type',
                   id: "finalCallType",
-                  accessor: d=>d[0]
+                  accessor: d=>d['final_call_type']
                 },
                 {
                   Header: "Precint",
                   id: "precint",
-                  accessor: d => d[1]
+                  accessor: d => d['precinct']
                 }
               ]
             },
@@ -74,12 +74,12 @@ let data = [];
                 {
                   Header: "Cad Event Number",
                   id: "cadEventNumber",
-                  accessor: d=>d[2]
+                  accessor: d=>d['cad_event_number']
                 },
                 {
                   Header: "Event Clearance Desc",
                   id: "eventClearanceDescription",
-                  accessor : d=>d[3]
+                  accessor : d=>d['event_clearance_description']
                 }
               ]
             },
@@ -89,7 +89,7 @@ let data = [];
                 {
                   Header: "Original Time Queued",
                   id: "original_time_queued",
-                  accessor: d=>d[4]
+                  accessor: d=>d['original_time_queued']
                 }
               ]
             },
@@ -99,7 +99,7 @@ let data = [];
                 {
                   Header: "Initial Call Type",
                   id: "initialCallTime",
-                  accessor: d=>d[5]
+                  accessor: d=>d['initial_call_type']
                 }
               ]
             },
@@ -109,7 +109,7 @@ let data = [];
                 {
                   Header: "Beat",
                   id: "beat",
-                  accessor: d=>d[6]
+                  accessor: d=>d['beat']
                 }
               ]
             },
@@ -119,7 +119,7 @@ let data = [];
                 {
                   Header: "Priority",
                   id: "priority",
-                  accessor: d=>d[7]
+                  accessor: d=>d['priority']
                 }
               ]
             },
@@ -129,7 +129,7 @@ let data = [];
                 {
                   Header: "Call Type",
                   id: "callType",
-                  accessor: d=>d[8]
+                  accessor: d=>d['call_type']
                 }
               ]
             },
@@ -139,7 +139,7 @@ let data = [];
                 {
                   Header: "Arrived Time",
                   id: "arrivedTime",
-                  accessor: d=>d[9]
+                  accessor: d=>d['arrived_time']
                 }
               ]
             },
@@ -149,7 +149,7 @@ let data = [];
                 {
                   Header: "Sector",
                   id: "sector",
-                  accessor: d=>d[10]
+                  accessor: d=>d['sector']
                 }
               ]
             }
