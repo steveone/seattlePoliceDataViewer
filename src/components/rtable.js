@@ -8,19 +8,36 @@ class Rtable extends Component {
       data:[],
       headers:[],
       i:0,
-      filtered:[{'id':'initialCallTime','value':'SHOTS'}]
+      filtered:[] //[{'id':'initialCallTime','value':'SHOTS'}]
     }
 
 
 
     componentDidMount() {
       const data = this.props.data;
-      const {startDate,endDate} = {...this.props};
+//      const {startDate,endDate} = {...this.props};
 //      console.log(startDate.format('YYYY-MM-YY'));
 //      console.log(endDate);
 //      console.log("in componentdidmoount");
 //      console.log(data);
       this.setState({data});
+}
+
+
+getColumns() {
+  const headers = this.props.headers;
+  console.log("data from get columns is")
+console.log(headers);
+  if ((headers.length > 0) && (this.props.loading === false)) {
+  return headers.map((key,i) => {
+    console.log(key + ' ' + i);
+    return {
+      Header: key,
+      accessor: key
+    };
+  })
+}
+return  []
 }
 
   render() {
@@ -32,11 +49,16 @@ const filteredOn = filters.map((val,index) => {
 })
 
 let data = [];
+let columns = [{Header:null,accessor:null}];
     if (this.props.loading === false) {
       data  = this.props.data;
 //      console.log("rendering " + this.state.i);
 //      console.log("loading");
+      columns = this.getColumns();
+console.log("columns next")
+      console.log(columns);
 }
+
 //    console.log(data);
     return (
       <div>
@@ -47,114 +69,15 @@ let data = [];
 
       {/*Show loading until data is fully downloaded*/}
       {(this.props.loading === true) && ( <div> loading </div> )}
+      {console.log("should render reactable here " + columns[0].length)}
 
+{
+  (columns.length > 0) && (
         <ReactTable
           data={data}
           filtered={this.state.filtered}
           onFilteredChange={filtered=>this.setState({filtered})}
-          columns={[
-            {
-              //Header: "Name",
-              columns: [
-                {
-                  Header: 'Final Call Type',
-                  id: "finalCallType",
-                  accessor: d=>d['final_call_type']
-                },
-                {
-                  Header: "Precint",
-                  id: "precint",
-                  accessor: d => d['precinct']
-                }
-              ]
-            },
-            {
-              //Header: "Precinct",
-              columns: [
-                {
-                  Header: "Cad Event Number",
-                  id: "cadEventNumber",
-                  accessor: d=>d['cad_event_number']
-                },
-                {
-                  Header: "Event Clearance Desc",
-                  id: "eventClearanceDescription",
-                  accessor : d=>d['event_clearance_description']
-                }
-              ]
-            },
-            {
-              //Header: 'item4',
-              columns: [
-                {
-                  Header: "Original Time Queued",
-                  id: "original_time_queued",
-                  accessor: d=>d['original_time_queued']
-                }
-              ]
-            },
-            {
-              //Header: 'item15',
-              columns: [
-                {
-                  Header: "Initial Call Type",
-                  id: "initialCallTime",
-                  accessor: d=>d['initial_call_type']
-                }
-              ]
-            },
-            {
-              //Header: 'item16',
-              columns: [
-                {
-                  Header: "Beat",
-                  id: "beat",
-                  accessor: d=>d['beat']
-                }
-              ]
-            },
-            {
-              //Header: 'item17',
-              columns: [
-                {
-                  Header: "Priority",
-                  id: "priority",
-                  accessor: d=>d['priority']
-                }
-              ]
-            },
-            {
-              //Header: 'item18',
-              columns: [
-                {
-                  Header: "Call Type",
-                  id: "callType",
-                  accessor: d=>d['call_type']
-                }
-              ]
-            },
-            {
-              //Header: 'item18',
-              columns: [
-                {
-                  Header: "Arrived Time",
-                  id: "arrivedTime",
-                  accessor: d=>d['arrived_time']
-                }
-              ]
-            },
-            {
-              //Header: 'item18',
-              columns: [
-                {
-                  Header: "Sector",
-                  id: "sector",
-                  accessor: d=>d['sector']
-                }
-              ]
-            }
-
-          ]}
+          columns={columns}
           filterable
           defaultPageSize={25}
           style={{
@@ -162,7 +85,7 @@ let data = [];
           }}
           className="-striped -highlight"
         />
-
+      )}
         <br />
 
       </div>

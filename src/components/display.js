@@ -6,7 +6,7 @@ import DatePicker from 'react-datepicker';
 import moment from 'moment';
 import 'react-datepicker/dist/react-datepicker.css';
 import Loader from 'react-loader-spinner'
-import Select from 'react-select'
+//import Select from 'react-select'
 
 class Display extends Component {
 
@@ -85,9 +85,7 @@ results = Object.assign(results,posts);
           results = results.concat(this.state.results);
           this.setState({results});
           console.log(d.length + " size of returned data");
-//          if (d.length === 1000) {
             if (posts.sizeOf === 1000){
-  //          console.log("getting more data");
             this.getData(startDate,endDate,offset+1000);
             this.setState({loading:true});
           }
@@ -133,7 +131,7 @@ results = Object.assign(results,posts);
 //    const columns = this.state.columns;
     const results = this.state.results;
     const headers = this.state.headers;
-    const options = this.state.options;
+//    const options = this.state.options;
 //    console.log("headers in render of display" + headers);
 //    const columns = this.state.columns;
 
