@@ -34,7 +34,7 @@ class Display extends Component {
       //SPD Offense codes
       //https://data.seattle.gov/resource/aj7i-nahf.json
       //
-      let url = `https://data.seattle.gov/resource/pdem-r2ku.json`;
+      let url = `https://data.seattle.gov/resource/33kz-ixgy.json`;
       let query = `?$where=original_time_queued > '${startDate}' and original_time_queued < '${endDate}'`;
       //let query2 = ` and initial_call_type='SHOTS - IP/JO - INCLUDES HEARD/NO ASSAULT'`;
       let offsetQuery =`&$offset=${offset}`;
