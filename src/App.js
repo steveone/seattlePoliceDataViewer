@@ -8,7 +8,7 @@ class App extends Component {
       <div className="App">
         <header className="App-header">
           <h1 className="App-title">Welcome to Seattle 911 Police View - Alpha<br/></h1>
-          Data from: https://data.seattle.gov/resource/pdem-r2ku.json
+          Data from: https://data.seattle.gov/resource/33kz-ixgy.json
         </header>
         <Display/>
       </div>
